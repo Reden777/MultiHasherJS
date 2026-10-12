@@ -6,5 +6,24 @@
   "browser": "multihasher.js",
   "scripts": { "test": "node test.js" },
   "keywords": ["hash", "sha3", "sha3-512", "sha256"],
-  "license": "CC0-1.0"
+  "license": "CC0-1.0",
+  "author": "Reden777",
+  "keywords": [
+	"energy",
+	"magic",
+	"servitorconnect",
+	"hashing",
+	"multihashing",
+	"hashes",
+	"sha512", 
+	"sha3"
+],
+"repository": {
+          "type": "git",
+          "url": "https://github.com/Reden777/MultiHasherJS.git"
+  },
+  "bugs": {
+          "url": "https://github.com/Reden777/MultiHasherJS/issues"
+  },
+  "homepage": "https://github.com/Reden777/MultiHasherJS#readme"
 }
