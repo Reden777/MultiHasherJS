@@ -1,4 +1,4 @@
-/* MultiHasherJS 1.0.0 | Browser and Node.js compatible | MIT */
+/* MultiHasherJS 1.0.0 | Browser and Node.js compatible | CC0 */
 (function (root, factory) {
   var api = factory();
   if (typeof module === "object" && module.exports) module.exports = api;
