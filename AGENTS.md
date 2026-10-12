@@ -1,1 +1,3 @@
 Transform the original source code into Javascript library. If it's possible, and it won't interrupt JS CDNs, also add an interactive mode, perhaps as another file. But the priority is the library version.
+
+Add SHA2-512 with optimized WebCrypto.

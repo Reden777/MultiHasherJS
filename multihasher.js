@@ -103,6 +103,21 @@
     var output = new Uint8Array(32); for (var j=0;j<8;j++) { output[4*j]=h[j]>>>24;output[4*j+1]=h[j]>>>16;output[4*j+2]=h[j]>>>8;output[4*j+3]=h[j]; } return hex(output, false);
   }
 
+  /**
+   * Returns a Promise for a lowercase SHA-2-512 digest. This delegates to the
+   * platform's native Web Crypto implementation, avoiding a JavaScript hash
+   * loop for the large-file/browser use case.
+   */
+  async function sha512(input) {
+    var bytes = toBytes(input);
+    var subtle = typeof globalThis !== "undefined" && globalThis.crypto && globalThis.crypto.subtle;
+    if (!subtle && typeof require === "function") {
+      try { subtle = require("crypto").webcrypto.subtle; } catch (_) { /* browser without Web Crypto */ }
+    }
+    if (!subtle) throw new Error("SHA-512 requires the Web Crypto API (crypto.subtle).");
+    return hex(new Uint8Array(await subtle.digest("SHA-512", bytes)), false);
+  }
+
   function positiveInteger(value, name) { if (!Number.isSafeInteger(value) || value < 1) throw new RangeError(name + " must be a positive safe integer."); }
   function truncateTo64(digest) {
     if (typeof digest !== "string" || !/^[0-9a-f]{128}$/i.test(digest)) throw new TypeError("Expected a 128-character SHA3-512 hexadecimal digest.");
@@ -136,7 +151,15 @@
     if (typeof lines === "string" && values[values.length - 1] === "") values.pop();
     return values.map(function (line) { return line + ": " + multiHashLine(line, options); });
   }
-  async function hashFile(file, algorithm) { var bytes = file instanceof ArrayBuffer ? file : await file.arrayBuffer(); return (algorithm || "sha3-512").toLowerCase() === "sha256" ? sha256(bytes).toUpperCase() : sha3_512(bytes).toUpperCase(); }
+  async function hashFile(file, algorithm) {
+    var bytes = file instanceof ArrayBuffer ? file : await file.arrayBuffer();
+    switch ((algorithm || "sha3-512").toLowerCase()) {
+      case "sha256": case "sha-256": return sha256(bytes).toUpperCase();
+      case "sha512": case "sha-512": case "sha2-512": case "sha-2-512": return (await sha512(bytes)).toUpperCase();
+      case "sha3-512": case "sha3_512": return sha3_512(bytes).toUpperCase();
+      default: throw new RangeError("Unsupported hash algorithm: " + algorithm);
+    }
+  }
 
-  return { sha3_512: sha3_512, sha256: sha256, multiHash: multiHash, multiHashLine: multiHashLine, multiHashLines: multiHashLines, truncateTo64: truncateTo64, hashFile: hashFile };
+  return { sha3_512: sha3_512, sha256: sha256, sha512: sha512, multiHash: multiHash, multiHashLine: multiHashLine, multiHashLines: multiHashLines, truncateTo64: truncateTo64, hashFile: hashFile };
 }));
