@@ -1,0 +1,10 @@
+{
+  "name": "multihasherjs",
+  "version": "1.0.0",
+  "description": "Browser and Node.js port of Multi-Hash SHA3-512 Preserve Original.",
+  "main": "multihasher.js",
+  "browser": "multihasher.js",
+  "scripts": { "test": "node test.js" },
+  "keywords": ["hash", "sha3", "sha3-512", "sha256"],
+  "license": "MIT"
+}

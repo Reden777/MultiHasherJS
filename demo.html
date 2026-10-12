@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MultiHasherJS</title>
+<style>body{font:16px system-ui;max-width:48rem;margin:3rem auto;padding:0 1rem}label{display:block;margin:1rem 0}textarea,input{width:100%;box-sizing:border-box;font:inherit}textarea{min-height:9rem}output{display:block;overflow-wrap:anywhere;padding:1rem;background:#f4f4f4}</style>
+<h1>MultiHasherJS</h1><label>Text <textarea id="text"></textarea></label><label>Repeats <input id="repeats" type="number" min="1" value="1"></label><label>Hash levels <input id="levels" type="number" min="1" value="1"></label><label><input id="truncate" type="checkbox"> Truncate to 64-bit</label><button id="hash">Hash</button><output id="result"></output>
+<script src="./multihasher.js"></script><script>hash.onclick=()=>{try{result.textContent=MultiHasher.multiHash(text.value,{repeats:Number(repeats.value),levels:Number(levels.value),truncate:truncate.checked})}catch(error){result.textContent=error.message}}</script>
+</html>
