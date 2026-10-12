@@ -6,5 +6,5 @@
   "browser": "multihasher.js",
   "scripts": { "test": "node test.js" },
   "keywords": ["hash", "sha3", "sha3-512", "sha256"],
-  "license": "MIT"
+  "license": "CC0-1.0"
 }
