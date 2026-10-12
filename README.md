@@ -5,6 +5,8 @@ It hashes hashes to energize them, like a laser's lens. However, this implementa
 
 A possible guidance could be 88 repeats @88 levels but we did much more in the native era.
 
+As of 1.0.1, native WebCrypto SHA2-512 has been added.
+
 ```js
 const MultiHasher = require('./multihasher.js');
 MultiHasher.multiHash('hello', { repeats: 1, levels: 1 });
